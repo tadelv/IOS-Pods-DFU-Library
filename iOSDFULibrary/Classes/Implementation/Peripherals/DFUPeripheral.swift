@@ -310,6 +310,15 @@ import CoreBluetooth
     
     func centralManagerDidUpdateState(central: CBCentralManager) {
         logCentralManagerState(central.state)
+        switch (central.state) {
+        case .PoweredOn:
+            break
+        default:
+            let userInfo = [NSLocalizedDescriptionKey: "Bluetooth is not powered on."]
+            let error = NSError(domain: DFUErrorDomain, code: DFUError.BluetoothOffline.rawValue, userInfo: userInfo)
+            delegate?.didDeviceDisconnectWithError(error)
+            break
+        }
     }
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {

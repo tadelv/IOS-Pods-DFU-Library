@@ -20,6 +20,8 @@
 * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+public let DFUErrorDomain: String = "com.nordicsemi.DFULibrary"
+
 @objc public enum DFUError : Int {
     case RemoteSuccess               = 1
     case RemoteInvalidState          = 2
@@ -42,6 +44,7 @@
     
     case FailedToConnect             = 201
     case DeviceDisconnected          = 202
+    case BluetoothOffline            = 203
     
     case ServiceDiscoveryFailed      = 301
     case DeviceNotSupported          = 302
