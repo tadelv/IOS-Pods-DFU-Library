@@ -323,7 +323,16 @@ internal class SecureDFUPeripheral: NSObject, CBPeripheralDelegate, CBCentralMan
     // MARK: - Central Manager methods
     
     func centralManagerDidUpdateState(central: CBCentralManager) {
-        logCentralManagerState(central.state)
+        logCentralManagerState(central.centralManagerState)
+		switch (central.state) {
+		case .PoweredOn:
+			break
+		default:
+			let userInfo = [NSLocalizedDescriptionKey: "Bluetooth is not powered on."]
+			let error = NSError(domain: DFUErrorDomain, code: DFUError.BluetoothOffline.rawValue, userInfo: userInfo)
+			delegate?.peripheralDisconnected(withError: error)
+			break
+		}
     }
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {

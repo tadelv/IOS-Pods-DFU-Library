@@ -310,7 +310,7 @@ import CoreBluetooth
     // MARK: - Central Manager methods
     
     func centralManagerDidUpdateState(central: CBCentralManager) {
-        logCentralManagerState(central.state)
+        logCentralManagerState(central.centralManagerState)
         switch (central.state) {
         case .PoweredOn:
             break
