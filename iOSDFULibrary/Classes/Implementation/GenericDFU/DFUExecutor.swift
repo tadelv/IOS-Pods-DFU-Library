@@ -38,19 +38,25 @@ class DFUExecutor : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     //MARK: - DFU Executor implementation
     
     var paused:Bool {
-        if self.isSecureDFU! {
-            return (secureDFUController?.paused)!
-        }else{
-            return (legacyDFUController?.paused)!
-        }
+		if let secure = self.isSecureDFU?.boolValue {
+			if secure {
+				return (secureDFUController?.paused)!
+			}else{
+				return (legacyDFUController?.paused)!
+			}
+		}
+		return false
     }
-    
+
     var aborted:Bool {
-        if self.isSecureDFU! {
-            return (secureDFUController?.aborted)!
-        }else{
-            return (legacyDFUController?.aborted)!
-        }
+		if let secure = self.isSecureDFU?.boolValue {
+			if secure {
+				return (secureDFUController?.aborted)!
+			}else{
+				return (legacyDFUController?.aborted)!
+			}
+		}
+		return false
     }
     
     func didDiscoverDFUService(secureDFU : Bool) {
@@ -106,29 +112,38 @@ class DFUExecutor : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         centralManager.connectPeripheral(peripheral, options: nil)
     }
     
-    func pause() -> Bool {
-        if self.isSecureDFU! {
-            return (self.secureDFUController?.pause())!
-        }else{
-            return (self.legacyDFUController?.pause())!
-        }
-    }
-    
+	func pause() -> Bool {
+		if let secure = self.isSecureDFU?.boolValue {
+			if secure {
+				return (self.secureDFUController?.pause())!
+			}else{
+				return (self.legacyDFUController?.pause())!
+			}
+		}
+		return false
+	}
+
     func resume() -> Bool {
-        if self.isSecureDFU! {
-            return (self.secureDFUController?.resume())!
-        }else{
-            return (self.legacyDFUController?.resume())!
-        }
+		if let secure = self.isSecureDFU?.boolValue {
+			if secure {
+				return (self.secureDFUController?.resume())!
+			}else{
+				return (self.legacyDFUController?.resume())!
+			}
+		}
+		return false
     }
-    
-    func abort() {
-        if self.isSecureDFU! {
-            self.secureDFUController?.abort()
-        }else{
-            self.legacyDFUController?.abort()
-        }
-    }
+
+	func abort() {
+		if let secure = self.isSecureDFU?.boolValue {
+			if secure {
+				self.secureDFUController?.abort()
+			}
+			else {
+				self.legacyDFUController?.abort()
+			}
+		}
+	}
 
     //MARK: - CBCentralManager delegate
     func centralManagerDidUpdateState(central: CBCentralManager){
