@@ -21,41 +21,47 @@
 */
 
 class LoggerHelper {
-    private var logger:LoggerDelegate
+    fileprivate var logger:LoggerDelegate?
     
-    init(_ logger:LoggerDelegate) {
+    init(_ logger:LoggerDelegate?) {
         self.logger = logger
     }
     
-    func d(message:String) {
-        logger.logWith(.Debug, message: message)
+    func d(_ message:String) {
+        log(withLevel: .debug, andMessage: message)
     }
     
-    func v(message:String) {
-        logger.logWith(.Verbose, message: message)
+    func v(_ message:String) {
+        log(withLevel: .verbose, andMessage: message)
     }
     
-    func i(message:String) {
-        logger.logWith(.Info, message: message)
+    func i(_ message:String) {
+        log(withLevel: .info, andMessage: message)
     }
     
-    func a(message:String) {
-        logger.logWith(.Application, message: message)
+    func a(_ message:String) {
+        log(withLevel: .application, andMessage: message)
     }
     
-    func w(message:String) {
-        logger.logWith(.Warning, message: message)
+    func w(_ message:String) {
+        log(withLevel: .warning, andMessage: message)
     }
     
-    func w(error:NSError) {
-        logger.logWith(.Warning, message: "Error \(error.code): \(error.localizedDescription)");
+    func e(_ message:String) {
+        log(withLevel: .error, andMessage: message)
     }
     
-    func e(message:String) {
-        logger.logWith(.Error, message: message)
+    func w(_ error:Error) {
+        log(withLevel: .warning, andMessage: "Error \((error as NSError).code): \(error.localizedDescription)")
     }
     
-    func e(error:NSError) {
-        logger.logWith(.Error, message: "Error \(error.code): \(error.localizedDescription)");
+    func e(_ error:Error) {
+        log(withLevel: .error, andMessage: "Error \((error as NSError).code): \(error.localizedDescription)")
+    }
+    
+    fileprivate func log(withLevel aLevel: LogLevel, andMessage aMessage: String) {
+        if self.logger != nil {
+            logger!.logWith(aLevel, message: aMessage)
+        }
     }
 }

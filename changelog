@@ -1,5 +1,25 @@
 ### Changelog
 
+- **2.1.2**:
+    - Bugfix: Fixed issue causing the DFU process to constantly fail after peripheral is reset during the process
+    - Feature: Added a failsafe solution for cases of an irrecoverable resume in the DFU process that simply starts the process from scratch ignoring it's state.
+    - Bugfix: Fixed issue #14 that caused a crash when the logger delegate wasn't being set.
+
+- **2.1.1**:
+    - Feature: Carthage is now fully supported
+
+- **2.1**:
+    - Obsolete: Deprecated enums are now obsolete: `State` is now `DFUState`, `StatusCode` is now `DFUResultCode`, `OpCode` is now `DFUOPCode`
+    - Bugfix: Fixed issue in test target having a missing framework path
+    - Bugfix: Fixed return values of Pause, Resume and Abort DFU methods that were returning wrong values
+
+- **2.0.1**:
+    - Bugfix: Fixed accidentally removed files in v2.0
+
+- **2.0**:
+    - Feature: Migrated to Swift 3.0 Xcode 8
+    - Bugfix: Issue where PRN `Packet Receipt Notification` values being overriden were ignored is now resolved
+
 - **1.0.12**:
     - Improvement: Refactored code to remove warnings about deprecation in Siwft3 and some other related warnings
 

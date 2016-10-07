@@ -29,7 +29,7 @@ extension CBCentralManager {
 	internal var centralManagerState: CBCentralManagerState  {
 		get {
 			guard let state = CBCentralManagerState(rawValue: state.rawValue) else {
-				return .Unknown
+				return .unknown
 			}
 			return state
 		}
